@@ -1,0 +1,7 @@
+package config
+
+const (
+	EXIT_FAILURE = 1
+	EXIT_FILE_EXISTS = 3
+	EXIT_FILE_CREATE_ERROR = 4
+)
