@@ -9,6 +9,7 @@ import (
 
 var (
 	initForce bool
+	initSamples bool
 	initCmd = &cobra.Command{
 		Use: "init",
 		Short: "Creates a new checklist",
@@ -28,13 +29,19 @@ var (
 				}
 			}
 
-			_, err := os.Create(filename)
+			file, err := os.Create(filename)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, config.GenericError, err)
 				os.Exit(config.EXIT_FILE_CREATE_ERROR)
 			}
 
 			fmt.Printf(config.InitFileCreated, filename)
+
+			if initSamples == true {
+				file.WriteString(getSamples())
+			}
+
+			file.Close()
 		},
 	}
 )
@@ -42,8 +49,13 @@ var (
 func init() {
 	rootCmd.AddCommand(initCmd)
 	initCmd.Flags().BoolVarP(&initForce, "force", "f", false, "Force create the checklist, overwriting an existing one")
+	initCmd.Flags().BoolVarP(&initSamples, "include-samples", "s", false, "Include checklist item samples")
 }
 
 func setChecklistFilename(filename string) string {
 	return fmt.Sprintf("%s.%s", filename, config.ChecklistFileExtension)
+}
+
+func getSamples() string {
+	return fmt.Sprintf("%s\n%s\n", config.InitSampleCheckedItem, config.InitSampleUncheckedItem)
 }
