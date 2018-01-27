@@ -18,9 +18,9 @@ var (
 		Run: func(cmd *cobra.Command, args []string) {
 			var filename string
 			if len(args) == 0 {
-				filename = setChecklistFilename("checklist")
+				filename = util.SetChecklistFilename("checklist")
 			} else {
-				filename = setChecklistFilename(args[0])
+				filename = util.SetChecklistFilename(args[0])
 			}
 
 			if initForce != true {
@@ -51,10 +51,6 @@ func init() {
 	rootCmd.AddCommand(initCmd)
 	initCmd.Flags().BoolVarP(&initForce, "force", "f", false, "Force create the checklist, overwriting an existing one")
 	initCmd.Flags().BoolVarP(&initSamples, "include-samples", "s", false, "Include checklist item samples")
-}
-
-func setChecklistFilename(filename string) string {
-	return fmt.Sprintf("%s.%s", filename, config.ChecklistFileExtension)
 }
 
 func getSamples() string {
