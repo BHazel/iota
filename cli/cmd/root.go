@@ -6,8 +6,8 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use: "iota",
-	Short: "Manages checklists.",
-	Long: "Manages plain-text checklists conforming to the Iota checklist specification.",
+	Short: "Manages checklists",
+	Long: "Manages plain-text checklists conforming to the Iota checklist specification",
 }
 
 func Execute() {

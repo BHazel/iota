@@ -8,8 +8,8 @@ import (
 
 var versionCmd = &cobra.Command{
 	Use: "version",
-	Short: "Prints the Iota version.",
-	Long: "Prints the Iota version to standard output.",
+	Short: "Prints the Iota version",
+	Long: "Prints the Iota version to standard output",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Printf("Iota v%s\n", config.CurrentVersion)
 	},
