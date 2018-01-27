@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var initForce bool
 var initCmd = &cobra.Command{
 	Use: "init",
 	Short: "Creates a new checklist",
@@ -19,9 +20,11 @@ var initCmd = &cobra.Command{
 			filename = setChecklistFilename(args[0])
 		}
 
-		if _, err := os.Stat(filename); err == nil {
-			fmt.Fprintf(os.Stderr, config.InitErrorFileExists, filename)
-			os.Exit(config.EXIT_FILE_EXISTS)
+		if initForce != true {
+			if _, err := os.Stat(filename); err == nil {
+				fmt.Fprintf(os.Stderr, config.InitErrorFileExists, filename)
+				os.Exit(config.EXIT_FILE_EXISTS)
+			}
 		}
 
 		_, err := os.Create(filename)
@@ -36,6 +39,7 @@ var initCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(initCmd)
+	initCmd.Flags().BoolVarP(&initForce, "force", "f", false, "Force create the checklist, overwriting an existing one")
 }
 
 func setChecklistFilename(filename string) string {
