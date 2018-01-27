@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"github.com/bhazel/iota/config"
+	"github.com/bhazel/iota/cli/util"
 	"github.com/spf13/cobra"
 )
 
@@ -24,14 +25,14 @@ var (
 
 			if initForce != true {
 				if _, err := os.Stat(filename); err == nil {
-					fmt.Fprintf(os.Stderr, config.InitErrorFileExists, filename)
+					util.PrintErr(config.InitErrorFileExists, filename)
 					os.Exit(config.EXIT_FILE_EXISTS)
 				}
 			}
 
 			file, err := os.Create(filename)
 			if err != nil {
-				fmt.Fprintf(os.Stderr, config.GenericError, err)
+				util.PrintErr(config.GenericError, err)
 				os.Exit(config.EXIT_FILE_CREATE_ERROR)
 			}
 
