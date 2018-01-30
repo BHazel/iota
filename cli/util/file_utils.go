@@ -18,6 +18,8 @@ func SetChecklistFilename(filename string) string {
 func FileExists(filename string) (bool, error) {
 	if _, err := os.Stat(filename); err == nil {
 		return true, nil
+	} else if _, err := os.Stat(filename); os.IsNotExist(err) {
+		return false, err
 	} else {
 		return false, err
 	}
