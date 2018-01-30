@@ -20,7 +20,7 @@ var rmCmd = &cobra.Command{
 		}
 
 		filename = util.SetChecklistFilename(args[0])
-		if _, err := os.Stat(filename); err == nil {
+		if _, err := util.FileExists(filename); err == nil {
 			os.Remove(filename)
 		} else {
 			util.PrintErr(config.ErrorFileNotFound, filename)

@@ -24,7 +24,7 @@ var (
 			}
 
 			if initForce != true {
-				if _, err := os.Stat(filename); err == nil {
+				if _, err := util.FileExists(filename); err == nil {
 					util.PrintErr(config.InitErrorFileExists, filename)
 					os.Exit(config.EXIT_FILE_EXISTS)
 				}
