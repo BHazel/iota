@@ -1,8 +1,9 @@
 package util
 
 import (
-	"github.com/bhazel/iota/config"
+	"github.com/bhazel/iota/config"	
 	"fmt"
+	"io/ioutil"
 	"os"
 	"strings"
 )
@@ -23,4 +24,14 @@ func FileExists(filename string) (bool, error) {
 	} else {
 		return false, err
 	}
+}
+
+func OpenChecklistFile(filename string) ([]string, error) {
+	data, err := ioutil.ReadFile(filename)
+	if err != nil {
+		return nil, err
+	}
+
+	fileContents := string(data)
+	return strings.Split(fileContents, "\n"), nil
 }
